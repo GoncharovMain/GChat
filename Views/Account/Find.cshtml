@@ -1,0 +1,21 @@
+@model List<User>;
+@{
+    ViewData["Title"] = "Find";
+}
+
+
+<div class="friends">
+    <h1>List Friends</h1>
+    <div class="list">
+        @{
+            #nullable disable
+            foreach (User user in Model)
+            {
+                string userLink = $"{user.Login} {user.FirstName} {user.SecondName}";
+                <div class="friend">
+                    @Html.ActionLink(userLink, "Profile", "Account", new { id = user.UserId })
+                </div>
+            }
+        }
+    </div>
+</div>

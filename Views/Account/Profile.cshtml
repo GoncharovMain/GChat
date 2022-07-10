@@ -1,0 +1,17 @@
+@model GChat.Models.User
+@{
+    ViewData["Title"] = "Profile";
+    DateTime dateBirthday = DateTimeOffset.FromUnixTimeMilliseconds(Model.Birthday).LocalDateTime;
+    string birthday = $"{dateBirthday.Day}.{dateBirthday.Month}.{dateBirthday.Year}";
+}
+
+<div class="profile">
+    <div class="card">
+        <p>Id: @Model.UserId</p>
+        <p>Nickname: @Model.Login</p>
+        <p>FirstName: @Model.FirstName</p>
+        <p>SecondName: @Model.SecondName</p>
+        <p>Sex: @Model.Sex</p>
+        <p>Birthday: @birthday</p>
+    </div>
+</div>

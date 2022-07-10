@@ -1,0 +1,29 @@
+﻿@using GChat.Models;
+@model List<User>;
+
+@{
+    ViewData["Index"] = "Account";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<ul>
+    @if (Model != null)
+    {
+        @foreach (User user in Model)
+        {
+            <li>
+                <span> @user.UserId</span>
+                <span> @user.Login</span>
+                <span> @user.FirstName</span>
+                <span> @user.SecondName</span>
+                <span> @DateTimeOffset.FromUnixTimeSeconds(user.Birthday).LocalDateTime</span>
+                <span> @user.Password</span>
+                <span> @user.Sex</span>
+            </li>
+        }
+    }
+</ul>

@@ -1,7 +1,4 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
+﻿a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
@@ -45,4 +42,270 @@ button.accept-policy {
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+}
+
+@font-face {
+  font-family: "NegaraserifHairlineitalic";
+  src: url("fonts/NegaraserifHairlineitalic.otf");
+}
+
+@font-face {
+  font-family: "Serifiqo 4F Free Capitals";
+  src: url("fonts/Serifiqo 4F Free Capitals.otf");
+}
+
+@font-face {
+  font-family: "YakumoPreschoolHand";
+  src: url("fonts/YakumoPreschoolHand.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  /* background-image: url("/home/goncharov/Изображения/landscape-4384149_1920.jpg"); */
+  /* background: linear-gradient(135deg, rgba(0, 0, 0, 1) 0%, rgba(0, 196, 255, 1) 100%);
+  height: 100%; */
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+
+  width: 100%;
+  height: 70px;
+  background: #000;
+}
+
+.header .menu {
+  display: flex;
+  align-items: center;
+  margin-right: 60px;
+}
+
+
+
+.header .menu a {
+  text-decoration: none;
+  color: white;
+  font-size: 27px;
+  font-family: "YakumoPreschoolHand", 'Courier New', Courier, monospace;
+}
+
+.button{
+  margin: auto 15px;
+}
+
+.header .menu a:hover{
+  color: #09f;
+}
+
+.main-block {
+  display: flex;
+  margin-top: 10px;
+  margin-right: 30px;
+  justify-content: space-evenly;
+}
+
+.list-users {
+  width: 35%;
+  font-family: "YakumoPreschoolHand", 'Courier New', Courier, monospace;
+}
+
+.list-users .item {
+  display: flex;
+  align-items: center;
+  height: 75px;
+  font-size: 25px;
+  margin-left: 15px;
+  border-bottom: 1px solid #000;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.list-users a {
+  text-decoration: none;
+  color: black;
+  margin-left: 15px
+}
+
+.list-users .photo img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.chat {
+
+  display: flex;
+  width: 60%;
+  max-height: 800px;
+  flex-direction: column;
+  justify-content: space-between;
+
+  font-size: 25px;
+
+  font-family: "NegaraserifHairlineitalic", 'Courier New', Courier, monospace;
+  font-family: "YakumoPreschoolHand", 'Courier New', Courier, monospace;
+
+  border-radius: 7px;
+}
+
+.chat .print-message {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 2px solid #000;
+  height: 800px;
+
+  box-shadow: inset 0 0 7px;
+}
+
+.chat .write-message {
+  display: flex;
+
+  border-radius: 10px;
+  height: 100px;
+  border: 2px solid #000;
+  padding: 10px 20px;
+  margin-top: 10px;
+
+  justify-content: space-evenly;
+  align-items: center;
+  box-shadow: inset 0 0 7px;
+}
+
+.scroll-effect {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.scroll-effect::-webkit-scrollbar {
+  width: 13px;
+  height: 16px;
+}
+
+.scroll-effect::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 8px;
+  /* box-shadow: -5px -5px 15px; */
+}
+
+
+.scroll-effect::-webkit-scrollbar-thumb:hover {
+  background-color: #333;
+}
+
+.shadow-effect {
+  box-shadow: inset 0 0  15px 3px;
+}
+
+
+
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin: 20px 20px;
+
+
+}
+
+.message .text {
+  border-radius: 5px;
+  border: 2px solid #000;
+  padding: 10px 20px 10px 10px;
+  box-shadow: 5px 5px 10px;
+
+  background-color: white;
+}
+
+.info {
+  font-size: 22px;
+  margin-bottom: 3px;
+}
+.info .username{
+  margin-right: 5px;
+}
+
+
+
+.left {
+  align-self: flex-start;
+}
+
+.right {
+  align-self: flex-end;
+}
+
+.print {
+  border: 1px solid #000;
+}
+
+.message {
+  opacity: 1;
+  animation-name: slide;
+  animation-duration: 4s;
+}
+
+@keyframes slide {
+  0% {
+      opacity: 0;
+  }
+
+  100% {
+      opacity: 1;
+  }
+}
+
+@keyframes grow {
+  0% {
+      height: 500px;
+  }
+
+  100% {
+      height: 800px;
+  }
+}
+
+/* .chat .write-message input[class*='text'] */
+#Text {
+  width: 80%;
+  height: 85%;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 26px;
+  padding: 5px 10px;
+}
+
+/* .chat .write-message input[class*='text'] */
+#Text::placeholder {
+  color: green;
+  opacity: 0.4;
+}
+
+.text-field__input:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #bdbdbd;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
+
+.chat .write-message .send-button {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  font-family: inherit;
+  font-size: 26px;
+  border: none;
+  background-color: #eee;
+}
+
+.chat .write-message .send-button:hover {
+  /* background-color: #aaa; */
+  box-shadow: 0 0 7px;
 }

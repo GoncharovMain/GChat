@@ -1,0 +1,28 @@
+@model GChat.ViewModels.ChatModel
+
+@{
+    #nullable disable
+    ViewData["Title"] = "Create chat";
+}
+
+<div class="create-chat">
+    <h1>Create chat</h1>
+    <form asp-action="Create" asp-controller="Chat" asp-anti-forgery="true">
+        <div class="validation" asp-validation-summary="ModelOnly" />
+
+        <div class="form-group input-name-chat">
+            <label asp-for="Name">Название чата:</label>
+            <input type="text" asp-for="Name" />
+            <span asp-validation-for="Name" />
+        </div>
+
+        <div class="form-group chat-members">
+            <select asp-for="Members" asp-items="ViewBag.Users"> </select>
+            <span asp-validation-for="Members" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" />
+        </div>
+    </form>
+</div>

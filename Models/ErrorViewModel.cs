@@ -1,4 +1,4 @@
-namespace Chat.Models;
+namespace GChat.Models;
 
 public class ErrorViewModel
 {
