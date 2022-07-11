@@ -16,8 +16,10 @@ namespace GChat.Models
         public string Sex { get; set; }
         public long Birthday { get; set; }
 
-        public Chat Chat { get; set; }
+        public virtual ICollection<Chat> Chats { get; set; }
         public Message Message { get; set; }
+
+        public User() => Chats = new List<Chat>();
 
 
         //public List<User> Friends { get; set; }

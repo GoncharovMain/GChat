@@ -2,51 +2,16 @@
 @{
     #nullable disable
     ViewData["Title"] = "Chat";
-    List<Message> listMessages = (List<Message>)ViewData["Message"];
 }
 <div class="main-block">
     <div class="members-chat">
-        <h1>Участники чата</h1>
-        <div class="list-users">
-            <div class="item">
-                <div class="photo"><img src="~/images/Putin.png" alt=""></div>
-                <a href=""><span class="username">Vladimir Putin</span></a>
-            </div>
-
-            <div class="item">
-                <div class="photo"><img src="~/images/Biden.png" alt=""></div>
-                <a href=""><span class="username">Joe Biden</span></a>
-            </div>
-
-            <div class="item">
-                <div class="photo"><img src="~/images/Zelenskiy.png" alt=""></div>
-                <a href=""><span class="username">Vladimir Zelenskiy</span></a>
-            </div>
-        </div>
+        @await Component.InvokeAsync("Members", new { id = (long)1 })
     </div>
 
 
     <div class="chat">
-        <div id="print" class="print-message scroll-effect">
-            @{
-                #nullable disable
-                string side = "left";
-                foreach (Message message in listMessages)
-                {
-                    side = side == "left" ? "right" : "left";
-                    <div class="message @side">
-                        <span class="text">@message.Text</span>
-                        <div class="info">
-                            <span>Id: @message.MessageId</span>
-                            <span>Chat: @message.ChatForeignKey</span>
-                            <span class="username">@message.UserForeignKey</span>
-                            <span
-                            class="published-date">@DateTimeOffset.FromUnixTimeMilliseconds(message.PublishedDate).LocalDateTime</span>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
+
+        @await Component.InvokeAsync("Messages", new { id = (long)1 })
 
         <form class="write-message" asp-action="Send" asp-controller="Chat" asp-anti-forgery="true">
             <div class="validation" asp-validation-summary="ModelOnly" />
@@ -54,6 +19,7 @@
             <span asp-validation-for="Text" />
             <input id="send" class="send-button" type="submit" value="Send" />
         </form>
+
     </div>
 </div>
 

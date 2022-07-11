@@ -45,7 +45,7 @@ namespace GChat.Models
                 .HasForeignKey<Message>(message => message.ChatForeignKey);
 
             modelBuilder.Entity<User>()
-                .HasOne(user => user.Chat)
+                .HasMany(user => user.Chats)
                 .WithMany(chat => chat.Members);
         }
     }

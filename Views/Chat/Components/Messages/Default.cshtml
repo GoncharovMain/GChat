@@ -1,0 +1,22 @@
+@model List<Message>;
+
+<div id="print" class="print-message scroll-effect">
+    @{
+        #nullable disable
+        string side = "left";
+        foreach (Message message in Model)
+        {
+            side = side == "left" ? "right" : "left";
+            <div class="message @side">
+                <span class="text">@message.Text</span>
+                <div class="info">
+                    <span>Id: @message.MessageId</span>
+                    <span>Chat: @message.ChatForeignKey</span>
+                    <span class="username">@message.UserForeignKey</span>
+                    <span
+                    class="published-date">@DateTimeOffset.FromUnixTimeMilliseconds(message.PublishedDate).LocalDateTime</span>
+                </div>
+            </div>
+        }
+    }
+</div>

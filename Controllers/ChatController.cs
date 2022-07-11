@@ -22,19 +22,13 @@ namespace Controllers
             _db = context;
         }
 
+        [HttpGet]
         public IActionResult Chat(long? id)
         {
             Chat chat = _db.Chats.FirstOrDefault(chat => chat.ChatId == id);
 
             if (chat != null)
             {
-                List<Message> result = _db.Messages
-                    .Where(message => message.ChatForeignKey == id)
-                    .OrderBy(message => message.PublishedDate)
-                    .ToList();
-
-                Console.WriteLine($"COUNT MESSAGE: {result.Count}");
-                ViewData["Message"] = result;
                 return View();
             }
 
@@ -102,5 +96,6 @@ namespace Controllers
             List<Chat> chats = _db.Chats.ToList();
             return View(chats);
         }
+
     }
 }

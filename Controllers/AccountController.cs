@@ -38,9 +38,8 @@ namespace GChat.Controllers
 
         public IActionResult Index()
         {
-            List<User> users = _db.Users.ToList();
 
-            _db.Users.Add(new User
+            User user1 = new User
             {
                 UserId = 1,
                 Login = "Goncharov",
@@ -49,9 +48,9 @@ namespace GChat.Controllers
                 SecondName = "Гончаров",
                 Sex = "Male",
                 Birthday = new DateTimeOffset(new DateTime(1999, 1, 9)).ToUnixTimeMilliseconds(),
-            });
+            };
 
-            _db.Users.Add(new User
+            User user2 = new User
             {
                 UserId = 2,
                 Login = "John",
@@ -60,8 +59,14 @@ namespace GChat.Controllers
                 SecondName = "Ховстедер",
                 Sex = "Male",
                 Birthday = new DateTimeOffset(new DateTime(1985, 8, 4)).ToUnixTimeMilliseconds(),
-            });
+            };
 
+            Chat chat1 = new Chat
+            {
+                ChatId = 1,
+                Name = "MainChat",
+                Members = new List<User>() { user1, user2 }
+            };
 
 
             _db.Messages.Add(new Message
@@ -82,15 +87,24 @@ namespace GChat.Controllers
                 PublishedDate = 4121334,
             });
 
-            _db.Chats.Add(new Chat
-            {
-                ChatId = 1,
-                Members = _db.Users.ToList()
-            });
+            user1.Chats = new List<Chat>() { chat1 };
+            user2.Chats = new List<Chat>() { chat1 };
+
+            _db.Users.Add(user1);
+            _db.Users.Add(user2);
+
+            _db.Chats.Add(chat1);
 
             _db.SaveChanges();
 
-            return View(users);
+            List<Chat> chats = _db.Chats.ToList();
+
+            foreach (User user in chats[0].Members)
+            {
+                Console.WriteLine($"MEMBER: Login: {user.Login} firstname: {user.FirstName}");
+            }
+
+            return View();
         }
 
         [HttpGet]

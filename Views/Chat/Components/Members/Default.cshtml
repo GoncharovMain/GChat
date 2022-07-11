@@ -1,0 +1,34 @@
+@model List<User>;
+
+<h1>Участники чата</h1>
+<div class="list-users">
+    @{
+        #nullable disable
+        foreach (User user in Model)
+        {
+            <div class="item">
+                <div class="photo"><img src="~/images/Putin.png" alt=""></div>
+                <a href="~/Account/User/@user.UserId">
+                    <span class="username">@user.Login</span>
+                    <span class="username">@user.FirstName</span>
+                    <span class="username">@user.SecondName</span>
+                </a>
+            </div>
+        }
+    }
+
+    <div class="item">
+        <div class="photo"><img src="~/images/Putin.png" alt=""></div>
+        <a href=""><span class="username">Vladimir Putin</span></a>
+    </div>
+
+    <div class="item">
+        <div class="photo"><img src="~/images/Biden.png" alt=""></div>
+        <a href=""><span class="username">Joe Biden</span></a>
+    </div>
+
+    <div class="item">
+        <div class="photo"><img src="~/images/Zelenskiy.png" alt=""></div>
+        <a href=""><span class="username">Vladimir Zelenskiy</span></a>
+    </div>
+</div>
