@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.AspNetCore.Authorization;
 using GChat.ViewModels;
 using GChat.Models;
@@ -83,23 +84,26 @@ namespace Controllers
         {
             string name = this.User.Identity.Name;
 
-            User currentUser = _db.Users.FirstOrDefault(user => user.Login == name);
-
             if (ModelState.IsValid)
             {
-                string chatName = model.Name;
+                User currentUser = _db.Users.FirstOrDefault(user => user.Login == name);
+                long[] ids = model.IdMembers;
 
-                List<long> ids = model.IdMembers.ToList();
+                var chats = _db.Chats
+                        .Include(chat => chat.Members);
+
+                List<User> users = _db.Users
+                    .Include(user => user.Chats)
+                    .Where(user => ids.Contains(user.UserId))
+                    .AsQueryable().ToList();
 
                 Chat chat = new Chat
                 {
                     Name = model.Name,
-                    Members = _db.Users
-                        .Where(user => ids.Contains(user.UserId))
-                        .ToList()
+                    Members = users
                 };
 
-                foreach (User user in chat.Members)
+                foreach (User user in users)
                 {
                     user.Chats.Add(chat);
                 }
@@ -120,8 +124,13 @@ namespace Controllers
         [HttpGet]
         public IActionResult MyChats()
         {
-            List<Chat> chats = _db.Chats.ToList();
-            return View(chats);
+            string name = this.User.Identity.Name;
+
+            User currentUser = _db.Users
+                .Include(user => user.Chats)
+                .FirstOrDefault(user => user.Login == name);
+
+            return View(currentUser.Chats);
         }
 
     }
