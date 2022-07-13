@@ -13,7 +13,12 @@
             {
                 string userLink = $"{user.Login} {user.FirstName} {user.SecondName}";
                 <div class="friend item">
-                    @Html.ActionLink(userLink, "Profile", "Account", new { id = user.UserId })
+                    <div class="add-friend">
+                        <input type="submit" value="" />
+                    </div>
+                    <div class="info">
+                        @Html.ActionLink(userLink, "Profile", "Account", new { id = user.UserId })
+                    </div>
                 </div>
             }
         }

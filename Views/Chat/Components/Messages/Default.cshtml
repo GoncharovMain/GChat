@@ -1,21 +1,19 @@
-@model Tuple<string, List<Message>>;
+@using GChat.ViewComponents;
+@model Tuple<string, List<ItemMessage>>;
 
 <h1>@Model.Item1</h1>
 <div id="print" class="print-message scroll-effect">
     @{
         #nullable disable
         string side = "left";
-        foreach (Message message in Model.Item2)
+        foreach (ItemMessage message in Model.Item2)
         {
             side = side == "left" ? "right" : "left";
             <div class="message @side">
                 <span class="text">@message.Text</span>
                 <div class="info">
-                    <span>Id: @message.MessageId</span>
-                    <span>Chat: @message.ChatForeignKey</span>
-                    <span class="username">@message.UserForeignKey</span>
-                    <span
-                    class="published-date">@DateTimeOffset.FromUnixTimeMilliseconds(message.PublishedDate).LocalDateTime</span>
+                    <span class="username">@message.UserName</span>
+                    <span class="published-date">@message.PublishedDate</span>
                 </div>
             </div>
         }

@@ -87,13 +87,31 @@ namespace Controllers
 
             if (ModelState.IsValid)
             {
+                string chatName = model.Name;
+
+                List<long> ids = model.IdMembers.ToList();
 
                 Chat chat = new Chat
                 {
                     Name = model.Name,
-                    Members = model.Members
+                    Members = _db.Users
+                        .Where(user => ids.Contains(user.UserId))
+                        .ToList()
                 };
 
+                foreach (User user in chat.Members)
+                {
+                    user.Chats.Add(chat);
+                }
+
+                if (ids.Contains(currentUser.UserId) == false)
+                {
+                    chat.Members.Add(currentUser);
+                    currentUser.Chats.Add(chat);
+                }
+
+                _db.Chats.Add(chat);
+                _db.SaveChanges();
             }
 
             return RedirectToAction("Create", "Chat");
