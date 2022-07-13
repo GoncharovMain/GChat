@@ -26,7 +26,7 @@ namespace GChat.ViewComponents
 
             Console.WriteLine($"MESSAGES COUNT: {messages.Count} ID:{id} {chat == null}");
 
-            return View(messages);
+            return View(new Tuple<string, List<Message>>(chat.Name, messages));
         }
 
         private Task<List<Message>> GetMessagesAsync(long? id)

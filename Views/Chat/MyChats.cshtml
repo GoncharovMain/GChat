@@ -6,13 +6,13 @@
 <div class="my-chats">
     <h1>Мои чаты</h1>
 
-    <div class="list">
+    <div class="list g-list-style">
         @{
             #nullable disable
             foreach (Chat chat in Model)
             {
                 string chatLink = $"{chat.ChatId} {chat.Name}";
-                <div class="chat-link">
+                <div class="chat-link item">
                     @Html.ActionLink(chatLink, "Chat", "Chat", new { id = chat.ChatId })
                 </div>
             }

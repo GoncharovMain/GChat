@@ -43,6 +43,10 @@ namespace GChat
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            app.MapControllerRoute(
+                name: "chat",
+                pattern: "{controller=Chat}/{action=Chat}/{id}");
+
             app.Run();
         }
     }

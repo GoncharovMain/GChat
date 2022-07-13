@@ -17,6 +17,9 @@ namespace Controllers
     {
         private ChatContext _db;
 
+        [ViewData]
+        public long CurrentChatId { get; set; }
+
         public ChatController(ChatContext context)
         {
             _db = context;
@@ -27,8 +30,14 @@ namespace Controllers
         {
             Chat chat = _db.Chats.FirstOrDefault(chat => chat.ChatId == id);
 
+            string name = this.User.Identity.Name;
+
+            User currentUser = _db.Users.FirstOrDefault(user => user.Login == name);
+
             if (chat != null)
             {
+                CurrentChatId = id ?? 1;
+
                 return View();
             }
 
@@ -37,20 +46,18 @@ namespace Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Send(MessageSenderModel model)
+        public async Task<IActionResult> Send(long chatId, MessageSenderModel model)
         {
-            ClaimsPrincipal user = this.User;
-
-            string name = user.Identity.Name;
+            string name = this.User.Identity.Name;
 
             User currentUser = _db.Users.FirstOrDefault(user => user.Login == name);
 
             if (ModelState.IsValid)
             {
-                _db.Messages.Add(new Message
+                await _db.Messages.AddAsync(new Message
                 {
                     UserForeignKey = currentUser.UserId,
-                    ChatForeignKey = 1,
+                    ChatForeignKey = chatId,
                     Text = model.Text,
                     PublishedDate = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds(),
                 });
@@ -58,7 +65,7 @@ namespace Controllers
                 _db.SaveChanges();
             }
 
-            return RedirectToAction("Chat", "Chat", new { id = 1 });
+            return RedirectToAction("Chat", "Chat", new { id = chatId });
         }
 
         [HttpGet]
@@ -68,26 +75,28 @@ namespace Controllers
 
             ViewBag.Users = new SelectList(users, "UserId", "Login");
 
-            Console.WriteLine($"VIEW_BAG: {ViewBag.Users}");
-
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(ChatModel model)
         {
+            string name = this.User.Identity.Name;
+
+            User currentUser = _db.Users.FirstOrDefault(user => user.Login == name);
+
             if (ModelState.IsValid)
             {
-                _db.Chats.Add(new Chat
+
+                Chat chat = new Chat
                 {
                     Name = model.Name,
                     Members = model.Members
-                });
+                };
 
-                _db.SaveChanges();
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Create", "Chat");
         }
 
         [HttpGet]

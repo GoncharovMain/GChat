@@ -1,10 +1,11 @@
-@model List<Message>;
+@model Tuple<string, List<Message>>;
 
+<h1>@Model.Item1</h1>
 <div id="print" class="print-message scroll-effect">
     @{
         #nullable disable
         string side = "left";
-        foreach (Message message in Model)
+        foreach (Message message in Model.Item2)
         {
             side = side == "left" ? "right" : "left";
             <div class="message @side">

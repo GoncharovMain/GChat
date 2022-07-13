@@ -1,14 +1,14 @@
 @model List<User>;
 
 <h1>Участники чата</h1>
-<div class="list-users">
+<div class="list-users g-list-style">
     @{
         #nullable disable
         foreach (User user in Model)
         {
             <div class="item">
                 <div class="photo"><img src="~/images/Putin.png" alt=""></div>
-                <a href="~/Account/User/@user.UserId">
+                <a href="~/Account/Profile/@user.UserId">
                     <span class="username">@user.Login</span>
                     <span class="username">@user.FirstName</span>
                     <span class="username">@user.SecondName</span>

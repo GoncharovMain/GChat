@@ -6,13 +6,13 @@
 
 <div class="friends">
     <h1>List Friends</h1>
-    <div class="list">
+    <div class="list g-list-style">
         @{
             #nullable disable
             foreach (User user in Model)
             {
                 string userLink = $"{user.Login} {user.FirstName} {user.SecondName}";
-                <div class="friend">
+                <div class="friend item">
                     @Html.ActionLink(userLink, "Profile", "Account", new { id = user.UserId })
                 </div>
             }

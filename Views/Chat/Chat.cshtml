@@ -2,18 +2,24 @@
 @{
     #nullable disable
     ViewData["Title"] = "Chat";
+
+    RouteData routeData = Context.GetRouteData();
+
+    long chatId = Convert.ToInt64(routeData.Values["id"]);
 }
+
 <div class="main-block">
     <div class="members-chat">
-        @await Component.InvokeAsync("Members", new { id = (long)1 })
+        @await Component.InvokeAsync("Members", new { id = chatId })
     </div>
 
 
     <div class="chat">
 
-        @await Component.InvokeAsync("Messages", new { id = (long)1 })
+        @await Component.InvokeAsync("Messages", new { id = chatId })
 
-        <form class="write-message" asp-action="Send" asp-controller="Chat" asp-anti-forgery="true">
+        <form class="write-message" asp-action="Send" asp-controller="Chat" asp-route-chatid="@chatId"
+            asp-anti-forgery="true">
             <div class="validation" asp-validation-summary="ModelOnly" />
             <input id="Text" asp-for="Text" type="text" placeholder="Print message..." />
             <span asp-validation-for="Text" />

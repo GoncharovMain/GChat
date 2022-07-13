@@ -14,6 +14,9 @@
 
 <body>
     <div class="container header">
+        <div class="logo">
+            <span>@(this?.User?.Identity?.Name == null ? "Please sign-in" : $"Welcome to chat {this?.User?.Identity?.Name}")</span>
+        </div>
         <div class="menu">
             <div class="button"><a asp-action="Register" asp-controller="Account">Registration</a></div>
             <div class="button"><a asp-action="Login" asp-controller="Account">Sign in</a></div>
