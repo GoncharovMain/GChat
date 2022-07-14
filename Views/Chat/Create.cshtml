@@ -10,19 +10,22 @@
     <form asp-action="Create" asp-controller="Chat" asp-anti-forgery="true">
         <div class="validation" asp-validation-summary="ModelOnly" />
 
-        <div class="form-group input-name-chat">
-            <label asp-for="Name">Название чата:</label>
-            <input type="text" asp-for="Name" />
-            <span asp-validation-for="Name" />
-        </div>
+        <div class="checkbox-list g-list-style">
+            <div class="form-group item">
+                <input asp-for="ChatName" type="text" placeholder="Название чата" />
+            </div>
 
-        <div class="form-group chat-members">
-            <select asp-for="IdMembers" asp-items="ViewBag.Users"> </select>
-            <span asp-validation-for="IdMembers" />
-        </div>
+            @foreach (var id in Model.IdMembers)
+            {
+                <div class="checkbox-group item">
+                    <input type="checkbox" name="SelectedUsers" value="@id.Value" id="" />
+                    <label>@id.Text</label>
+                </div>
+            }
 
-        <div class="form-group">
-            <input type="submit" value="Create" />
+        </div>
+        <div class="form-group-create">
+            <input class="button-create" type="submit" value="Create" />
         </div>
     </form>
 </div>

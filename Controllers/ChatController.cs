@@ -76,7 +76,13 @@ namespace Controllers
 
             ViewBag.Users = new SelectList(users, "UserId", "Login");
 
-            return View();
+            var chatModel = new ChatModel
+            {
+                SelectedUsers = users.Select(user => user.Login).ToList(),
+                IdMembers = new SelectList(users, "UserId", "Login").ToList()
+            };
+
+            return View(chatModel);
         }
 
         [HttpPost]
@@ -87,7 +93,8 @@ namespace Controllers
             if (ModelState.IsValid)
             {
                 User currentUser = _db.Users.FirstOrDefault(user => user.Login == name);
-                long[] ids = model.IdMembers;
+
+                long[] ids = model.SelectedUsers.Select(id => Convert.ToInt64(id)).ToArray();
 
                 var chats = _db.Chats
                         .Include(chat => chat.Members);
@@ -99,7 +106,7 @@ namespace Controllers
 
                 Chat chat = new Chat
                 {
-                    Name = model.Name,
+                    Name = model.ChatName,
                     Members = users
                 };
 

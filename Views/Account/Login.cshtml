@@ -8,18 +8,16 @@
     <form class="SignIn" asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
         <div class="validation" asp-validation-summary="ModelOnly"></div>
 
-        <div class="form-group">
-            <label asp-for="Login">Login</label>
-            <input type="text" asp-for="Login" />
-            <span asp-validation-for="Login" />
+        <div class="g-list-style">
+            <div class="item">
+                <input type="text" asp-for="Login" placeholder="Login" />
+                <span asp-validation-for="Login" />
+            </div>
+            <div class="item">
+                <input asp-for="Password" placeholder="Password" />
+                <span asp-validation-for="Password" />
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Password">Password</label>
-            <input asp-for="Password" />
-            <span asp-validation-for="Password" />
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Войти" />
-        </div>
+        <input type="submit" value="Войти" />
     </form>
 </div>

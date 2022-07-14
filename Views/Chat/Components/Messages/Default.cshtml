@@ -1,15 +1,15 @@
 @using GChat.ViewComponents;
-@model Tuple<string, List<ItemMessage>>;
+@model Tuple<string, string, List<ItemMessage>>;
 
-<h1>@Model.Item1</h1>
+<h1>@Model.Item2</h1>
+
 <div id="print" class="print-message scroll-effect">
     @{
         #nullable disable
-        string side = "left";
-        foreach (ItemMessage message in Model.Item2)
+
+        foreach (ItemMessage message in Model.Item3)
         {
-            side = side == "left" ? "right" : "left";
-            <div class="message @side">
+            <div class='message @(Model.Item1 == message.UserName ? "right" : "left")'>
                 <span class="text">@message.Text</span>
                 <div class="info">
                     <span class="username">@message.UserName</span>

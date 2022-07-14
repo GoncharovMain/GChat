@@ -38,7 +38,9 @@ namespace GChat.ViewComponents
                     PublishedDate = DateTimeOffset.FromUnixTimeMilliseconds(message.PublishedDate).LocalDateTime
                 }).ToListAsync();
 
-            return View(new Tuple<string, List<ItemMessage>>(chat.Name, messages));
+            User currentUser = _db.Users.FirstOrDefault(user => user.Login == User.Identity.Name);
+
+            return View(new Tuple<string, string, List<ItemMessage>>(currentUser.Login, chat.Name, messages));
         }
     }
 }
