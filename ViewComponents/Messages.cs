@@ -21,7 +21,7 @@ namespace GChat.ViewComponents
         {
             Chat chat = _db.Chats.FirstOrDefault(chat => chat.ChatId == id);
 
-            List<ItemMessage> messages = await (
+            IQueryable<ItemMessage> queryMessages = (
                 from message in _db.Messages
                 from user in _db.Users
                 where message.UserForeignKey == user.UserId
@@ -32,7 +32,14 @@ namespace GChat.ViewComponents
                     UserName = user.Login,
                     Text = message.Text,
                     PublishedDate = DateTimeOffset.FromUnixTimeMilliseconds(message.PublishedDate).LocalDateTime
-                }).ToListAsync();
+                });
+
+            List<ItemMessage> messages;
+
+            if (queryMessages.Count() > 20)
+                messages = await queryMessages.TakeLast(20).ToListAsync();
+            else
+                messages = await queryMessages.ToListAsync();
 
             User currentUser = _db.Users.FirstOrDefault(user => user.Login == User.Identity.Name);
 

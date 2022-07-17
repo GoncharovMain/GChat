@@ -8,10 +8,11 @@
         {
             <div class="item">
                 <div class="photo"><img src="~/images/Yura.png" alt=""></div>
-                <a href="~/Account/Profile/@user.UserId">
+                <a id="login-@user.Login" href="~/Account/Profile/@user.UserId">
                     <span class="username">@user.Login</span>
                     <span class="username">@user.FirstName</span>
                     <span class="username">@user.SecondName</span>
+                    <span class="username status offline">offline</span>
                 </a>
             </div>
         }

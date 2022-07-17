@@ -1,18 +1,11 @@
 /bin/*
 /obj/*
-wwwroot/*
+wwwroot/favicon.ico
 wwwroot/fonts/*
 wwwroot/lib/*
-wwwroot/js/*
 wwwroot/images/*
 wwwroot/css/*
 
-/wwwroot/*
-/wwwroot/fonts/*
-/wwwroot/lib/*
-/wwwroot/js/*
-/wwwroot/images/*
-/wwwroot/css/*
 
 /Migrations/*
 

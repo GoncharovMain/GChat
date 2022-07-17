@@ -48,12 +48,16 @@ namespace GChat
         {
             Console.WriteLine($"Connection Id: {Context.ConnectionId} online.");
 
+            await Clients.Others.SendAsync("SetStatus", "online", Context.User.Identity.Name);
+
             await base.OnConnectedAsync();
         }
 
         public async override Task OnDisconnectedAsync(Exception exception)
         {
             Console.WriteLine($"Connection Id: {Context.ConnectionId} offline.");
+
+            await Clients.Others.SendAsync("SetStatus", "offline", Context.User.Identity.Name);
 
             await base.OnDisconnectedAsync(exception);
         }
