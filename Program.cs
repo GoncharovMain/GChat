@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.SignalR;
 using GChat.Models;
 
 #nullable disable
@@ -21,6 +22,7 @@ namespace GChat
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                 });
 
+            builder.Services.AddSignalR();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -39,13 +41,11 @@ namespace GChat
             app.UseAuthorization();
             app.UseAuthentication();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            app.MapControllerRoute(
-                name: "chat",
-                pattern: "{controller=Chat}/{action=Chat}/{id}");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapDefaultControllerRoute();
+            });
 
             app.Run();
         }

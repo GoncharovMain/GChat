@@ -15,24 +15,35 @@
 <body>
     <div class="container header">
         <div class="logo">
-            <span>@(this?.User?.Identity?.Name == null ? "Please sign-in" : $"Welcome to chat {this?.User?.Identity?.Name}")</span>
+            <span>@(this?.User?.Identity?.Name == null ? "Please sign-in" : $"Welcome to chat, {this?.User?.Identity?.Name}")</span>
         </div>
         <div class="menu">
-            <div class="button"><a asp-action="Register" asp-controller="Account">Registration</a></div>
-            <div class="button"><a asp-action="Login" asp-controller="Account">Sign in</a></div>
-            <div class="button"><a asp-action="Logout" asp-controller="Account">Sign out</a></div>
-            <div class="button"><a asp-action="Find" asp-controller="Account">Find friend</a></div>
-            <div class="button"><a asp-action="MyChats" asp-controller="Chat">Chats</a></div>
-            <div class="button"><a asp-action="Create" asp-controller="Chat">Create chat</a></div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="button"><a asp-action="Find" asp-controller="Account">Find friend</a></div>
+                <div class="button"><a asp-action="MyChats" asp-controller="Chat">Chats</a></div>
+                <div class="button"><a asp-action="Create" asp-controller="Chat">Create chat</a></div>
+                <div class="button"><a asp-action="Logout" asp-controller="Account">Sign out</a></div>
+            }
+            else
+            {
+                <div class="button"><a asp-action="Register" asp-controller="Account">Registration</a></div>
+                <div class="button"><a asp-action="Login" asp-controller="Account">Sign in</a></div>
+            }
         </div>
     </div>
     @RenderBody()
 
 
+    @{
+        string link = "https://unpkg.com/@microsoft/signalr@3.1.0/dist/browser/signalr.min.js";
+    }
+    <script src=@link></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 
 </html>

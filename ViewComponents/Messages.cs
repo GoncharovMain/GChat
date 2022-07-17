@@ -2,24 +2,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using GChat.Models;
-using System.Linq;
-
+using GChat.ViewModels;
 
 #nullable disable
 
 namespace GChat.ViewComponents
 {
-    public class ItemMessage
-    {
-        public string Text { get; set; }
-        public string UserName { get; set; }
-        public DateTime PublishedDate { get; set; }
-    }
-
     public class Messages : ViewComponent
     {
         private ChatContext _db;
-        public Messages(ChatContext context) => _db = context;
+
+        public Messages(ChatContext context)
+        {
+            _db = context;
+        }
 
         public async Task<IViewComponentResult> InvokeAsync(long id)
         {

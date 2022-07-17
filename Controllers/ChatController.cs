@@ -1,14 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.AspNetCore.Authorization;
 using GChat.ViewModels;
 using GChat.Models;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
-
+using Microsoft.AspNetCore.SignalR;
+using GChat;
 
 #nullable disable
 
@@ -17,13 +14,15 @@ namespace Controllers
     public class ChatController : Controller
     {
         private ChatContext _db;
+        private IHubContext<ChatHub> _hubContext;
 
         [ViewData]
         public long CurrentChatId { get; set; }
 
-        public ChatController(ChatContext context)
+        public ChatController(ChatContext context, IHubContext<ChatHub> hubContext)
         {
             _db = context;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -43,30 +42,6 @@ namespace Controllers
             }
 
             return Content($"Чата с id: {id} не существует");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Send(long chatId, MessageSenderModel model)
-        {
-            string name = this.User.Identity.Name;
-
-            User currentUser = _db.Users.FirstOrDefault(user => user.Login == name);
-
-            if (ModelState.IsValid)
-            {
-                await _db.Messages.AddAsync(new Message
-                {
-                    UserForeignKey = currentUser.UserId,
-                    ChatForeignKey = chatId,
-                    Text = model.Text,
-                    PublishedDate = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds(),
-                });
-
-                _db.SaveChanges();
-            }
-
-            return RedirectToAction("Chat", "Chat", new { id = chatId });
         }
 
         [HttpGet]
