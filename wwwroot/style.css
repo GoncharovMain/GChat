@@ -48,6 +48,7 @@
 html, body{
     font-family: "ComfortaaVariableFont_wght", "Noto Sans Thin", "YakumoPreschoolHand", 'Courier New', Courier, monospace;
     background-color: var(--main-background-color);
+    width: 100%;
 }
 body {
     display: flex;
@@ -562,5 +563,17 @@ input[type="submit"]{
     .message,
     .message .info {
         font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .members-chat {
+        display: none;
+    }
+    .chat {
+        width: 100%;
+    }
+    .header .menu {
+        flex-direction: column;
     }
 }

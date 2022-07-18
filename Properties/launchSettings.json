@@ -8,13 +8,13 @@
     }
   },
   "profiles": {
-    "Chat": {
+    "GChat": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7248;http://localhost:5000",
+      "applicationUrl": "http://127.0.0.1:7248;",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     },
     "IIS Express": {
