@@ -19,6 +19,9 @@ function getFormatDate(date){
     return `${day}.${month}.${year} ${hour}:${minute}`;
 }
 
+
+
+
 function addItemMessage(itemMessage) {
 
     let print = document.getElementById("print");
@@ -32,16 +35,24 @@ function addItemMessage(itemMessage) {
 
     let username = document.createElement('span');
     username.classList.add('username');
-    username.innerText = itemMessage.userName;
 
     let publishedDate = document.createElement('span');
     publishedDate.classList.add('published-date');
-    publishedDate.innerText = getFormatDate(itemMessage.publishedDate);
 
 
     let textMessage = document.createElement('span');
     textMessage.classList.add('text');
+
+    username.innerText = itemMessage.userName;
+
+    publishedDate.innerText = getFormatDate(itemMessage.publishedDate);
+
     textMessage.innerText = itemMessage.text;
+
+    // for(var symb of itemMessage.text)
+    // {
+    //     console.log(`${symb} ${symb.charCodeAt(0)}`);
+    // }
 
     info.appendChild(username);
     info.appendChild(publishedDate);
@@ -75,9 +86,9 @@ hubConnection.on("SetStatus", setStatus);
 function invokeSend() {
     let text = document.getElementById("Text");
 
-    hubConnection.invoke("Send", window.location.pathname, text.value);
+    hubConnection.invoke("Send", window.location.pathname, text.innerText);
 
-    text.value = "";
+    text.innerText = "";
 }
 
 let sender = document.getElementById("send");

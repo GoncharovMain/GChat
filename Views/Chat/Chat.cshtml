@@ -16,7 +16,7 @@
         @await Component.InvokeAsync("Messages", new { id = chatId })
 
         <div class="write-message" method="post">
-            <input id="Text" type="text" placeholder="Print message..." />
+            <div id="Text" role="textbox" contenteditable="true"></div>
             <button id="send" class="send-button">Click me</button>
         </div>
 
