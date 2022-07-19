@@ -10,17 +10,29 @@ function getFormatDate(date){
     let now = new Date(date);
 
     let year = now.getFullYear();
-    let month = now.getMonth();
-    let day = now.getDate();
+    let month = now.getMonth().toString().padStart(2, '0');
+    let day = now.getDate().toString().padStart(2, '0');
 
-    let hour = now.getHours();
+    let hour = now.getHours().toString().padStart(2, '0');
     let minute = now.getMinutes().toString().padStart(2, '0');
 
     return `${day}.${month}.${year} ${hour}:${minute}`;
 }
 
 
+function replaceMultiline() {
+    let messages = document.getElementsByClassName("text");
+    let enter = String.fromCharCode(10);
 
+    for (let message of messages)
+    {
+        let text = message.innerText;
+        replaceText = text.replace(enter, "<br>");
+        message.innerHTML = replaceText;
+    }
+}
+
+replaceMultiline();
 
 function addItemMessage(itemMessage) {
 
@@ -48,11 +60,6 @@ function addItemMessage(itemMessage) {
     publishedDate.innerText = getFormatDate(itemMessage.publishedDate);
 
     textMessage.innerText = itemMessage.text;
-
-    // for(var symb of itemMessage.text)
-    // {
-    //     console.log(`${symb} ${symb.charCodeAt(0)}`);
-    // }
 
     info.appendChild(username);
     info.appendChild(publishedDate);

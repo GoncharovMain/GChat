@@ -16,7 +16,7 @@
         @await Component.InvokeAsync("Messages", new { id = chatId })
 
         <div class="write-message" method="post">
-            <div id="Text" role="textbox" contenteditable="true"></div>
+            <div id="Text" class="scroll-effect" role="textbox" contenteditable="true"></div>
             <button id="send" class="send-button">Click me</button>
         </div>
 
