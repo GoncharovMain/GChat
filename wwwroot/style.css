@@ -543,6 +543,7 @@ input[type="submit"]{
 }
 .my-chats .list{
     margin-top: 30px;
+    height: 800px;
 }
 
 .my-chats .chat-link {
