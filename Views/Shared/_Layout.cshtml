@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewData["Title"] - Chat</title>
-    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
-    @* <link rel="stylesheet" href="~/Chat.styles.css" asp-append-version="true" /> *@
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     @* https://ask-dev.ru/info/28437/how-to-get-the-current-user-in-aspnet-mvc *@
-    <link rel="stylesheet" href="~/style.css">
+    @* <link rel="stylesheet" href="~/Static/Styles/style.bundle.min.css"/>
+    <link rel="stylesheet" href="~/Styles/style.bundle.min.css"/> *@
+    <link rel="stylesheet" asp-href-include="~/style.bundle.min.css"/>
 </head>
 
 <body>
@@ -34,14 +34,16 @@
     </div>
     @RenderBody()
 
+    <script asp-src-include="~/lib/jquery/dist/jquery.min.js"></script>
+    <script asp-src-include="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
 
-    @{
-        string link = "https://unpkg.com/@microsoft/signalr@3.1.0/dist/browser/signalr.min.js";
-    }
-    <script src=@link></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script asp-src-include="~/lib/signalr/jquery.signalR.min.js"></script>
+    <script asp-src-include="~/lib/@@microsoft/signalr/dist/browser/signalr.js"></script>
+    <script asp-src-include="~/lib/@@microsoft/signalr/dist/webworker/signalr.js"></script>
+
+    @* <script asp-src-include="~/site.bundle.min.js" asp-append-version="true"></script> *@
+    <script asp-src-include="~/js/site.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

@@ -3,8 +3,13 @@
     .withAutomaticReconnect()
     .build();
 
+var thisConnectionId;
+
 let block = document.getElementsByClassName("print-message")[0];
-block.scrollTop = block.scrollHeight;
+
+if (block){
+    block.scrollTop = block.scrollHeight;
+}
 
 function getFormatDate(date){
     let now = new Date(date);
@@ -40,13 +45,16 @@ function beep() {
     sound.play();
 }
 
-function addItemMessage(itemMessage) {
+function addItemMessage(itemMessage, connectionId) {
 
     let print = document.getElementById("print");
 
     let message = document.createElement('div');
     message.classList.add('message');
-    message.classList.add("right");
+
+    let side = thisConnectionId != connectionId ? "left" : "right";
+
+    message.classList.add(side);
 
     let info = document.createElement('div');
     info.classList.add('info');
@@ -98,6 +106,8 @@ hubConnection.on("Receive", addItemMessage);
 
 hubConnection.on("SetStatus", setStatus);
 
+
+
 function invokeSend() {
     let text = document.getElementById("Text");
 
@@ -119,4 +129,24 @@ if (sender){
     });
 }
 
-hubConnection.start();
+
+
+
+
+function joinRoom() {
+
+    if (window.location.pathname.includes("/Chat/Chat"))
+    {
+        hubConnection.start().then(function(){
+            let chatId = window.location.pathname.split("/")[3];
+
+            hubConnection.invoke("JoinRoom", chatId);
+
+            thisConnectionId = hubConnection.connectionId;
+        });
+
+        return;
+    }
+}
+
+joinRoom();

@@ -21,9 +21,15 @@ run DB PosgreSQL
 [ > psql gchat ]
 > sudo systemctl start postgresql.service
 
-> dotnet run
-
 > sudo systemctl start nginx
+
+for bundle and minifier
+> dotnet new tool-manifest
+
+> dotnet tool run bundle
+or
+>dotnet bundle
+
 > dotnet run [dotnet run --environment Production]
 
 go to http://your_ip/Account/Login

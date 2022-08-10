@@ -4,9 +4,14 @@ wwwroot/favicon.ico
 wwwroot/fonts/*
 wwwroot/lib/*
 wwwroot/images/*
-wwwroot/css/*
+wwwroot/css/
+wwwroot/style.bundle.min.css
+wwwroot/site.bundle.min.js
 
+node_modules/*
 
 /Migrations/*
+
+package.json
 
 favicon.ico

@@ -95,7 +95,7 @@ namespace GChat.Controllers
 
             _db.Chats.Add(chat1);
 
-            _db.SaveChanges();
+            //_db.SaveChanges();
 
             List<Chat> chats = _db.Chats.ToList();
 
@@ -127,7 +127,7 @@ namespace GChat.Controllers
                 ModelState.AddModelError("", "Некорректные логин и (или) пароль");
             }
 
-            return View(model);
+            return RedirectToAction("MyChats", "Chat");
         }
 
         public IActionResult Register() => View();
@@ -168,30 +168,6 @@ namespace GChat.Controllers
 
             return View(model);
         }
-
-        // public IActionResult Index()
-        // {
-        //     List<User> result = _db?.Users?.ToList();
-
-        //     _db?.Add(new User
-        //     {
-        //         Login = "Goncharov",
-        //         Password = "qwerty",
-        //         FirstName = "Юрий",
-        //         SecondName = "Гончаров",
-        //         Birthday = new DateTimeOffset(new DateTime(1999, 1, 9)).ToUnixTimeSeconds(),
-        //         Friends = null
-        //     });
-
-        //     _db?.SaveChanges();
-
-        //     // long time = new DateTimeOffset(dateTime1).ToUnixTimeSeconds();
-        //     // var dateTime2 = DateTimeOffset.FromUnixTimeSeconds(unixTimeSeconds).LocalDateTime;
-        //     // var dateTime2 = DateTimeOffset.FromUnixTimeSeconds(unixTimeSeconds).UtcDateTime;
-
-
-        //     return View(result);
-        // }
 
         public async Task Authenticate(string login)
         {

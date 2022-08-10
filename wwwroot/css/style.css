@@ -1,21 +1,21 @@
 @font-face {
     font-family: "NegaraserifHairlineitalic";
-    src: url("fonts/NegaraserifHairlineitalic.otf");
+    src: url("../fonts/NegaraserifHairlineitalic.otf");
 }
 
 @font-face {
     font-family: "Serifiqo 4F Free Capitals";
-    src: url("fonts/Serifiqo 4F Free Capitals.otf");
+    src: url("../fonts/Serifiqo 4F Free Capitals.otf");
 }
 
 @font-face {
     font-family: "YakumoPreschoolHand";
-    src: url("fonts/YakumoPreschoolHand.ttf");
+    src: url("../fonts/YakumoPreschoolHand.ttf");
 }
 
 @font-face {
     font-family: "ComfortaaVariableFont_wght";
-    src: url("fonts/Comfortaa-VariableFont_wght.ttf");
+    src: url("../fonts/Comfortaa-VariableFont_wght.ttf");
 }
 /* 1px solid #ced4da */
 :root{

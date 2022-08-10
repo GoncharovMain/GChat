@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
 using GChat.Models;
+using GChat.Services;
 
 #nullable disable
 
@@ -13,7 +15,9 @@ namespace GChat
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder(
+                new WebApplicationOptions { WebRootPath = "wwwroot" }
+            );
 
             builder.Services.AddDbContext<ChatContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -26,6 +30,8 @@ namespace GChat
 
             builder.Services.AddSignalR();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddSingleton<RoomService>();
 
             var app = builder.Build();
 
