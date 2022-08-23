@@ -7,6 +7,7 @@ namespace GChat.Models
 {
     public class User
     {
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
         public long UserId { get; set; }
 
         public string Login { get; set; }

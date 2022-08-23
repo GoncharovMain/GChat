@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
-
+using AutoMapper;
+using GChat.Mappers;
 
 #nullable disable
 
@@ -16,10 +17,14 @@ namespace GChat.Controllers
     public class AccountController : Controller
     {
         private ChatContext _db;
+        private readonly IMapper _mapper;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(ChatContext context)
+        public AccountController(ChatContext context, IMapper mapper, ILogger<AccountController> logger)
         {
             _db = context;
+            _mapper = mapper;
+            _logger = logger;
         }
 
 
@@ -138,31 +143,21 @@ namespace GChat.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _db.Users.FirstOrDefaultAsync(user => user.Login == model.Login && user.Password == model.Password);
+                User user = await _db.Users.FirstOrDefaultAsync(user => user.Login == model.Login);
 
                 if (user == null)
                 {
-                    long lastId = _db.Users.OrderBy(user => user.UserId).Last().UserId;
+                    User newUser = _mapper.Map<User>(model);
 
-                    _db.Users.Add(new User
-                    {
-                        UserId = lastId + 1,
-                        Login = model.Login,
-                        Password = model.Password,
-                        FirstName = model.FirstName,
-                        SecondName = model.SecondName,
-                        Birthday = new DateTimeOffset(model.Birthday).ToUnixTimeSeconds(),
-                        Sex = model.Sex,
-                    });
+                    _db.Users.Add(newUser);
 
                     await _db.SaveChangesAsync();
-                    Console.WriteLine($"SAVE MODEL: {model.Login} {model.Password} {model.Sex}");
 
                     await Authenticate(model.Login);
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Не верный логин и (или) пароль");
+                    ModelState.AddModelError("", "Аккаунт с таким логином уже существует.");
                 }
             }
 

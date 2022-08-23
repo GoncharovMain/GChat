@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
+using AutoMapper;
 using GChat.Models;
 using GChat.Services;
+using GChat.Mappers;
 
 #nullable disable
 
@@ -31,6 +33,7 @@ namespace GChat
             builder.Services.AddSignalR();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAutoMapper(typeof(UserMapper));
             builder.Services.AddSingleton<RoomService>();
 
             var app = builder.Build();
